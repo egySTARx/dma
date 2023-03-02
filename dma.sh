@@ -39,7 +39,7 @@ yum -y update
 temp="temp"
 
 # Packages which will be installed as pre requisite and to make your life easier
-PKG="nano wget git unzip curl net-tools lsof mc make gcc libtool-ltdl curl httpd mysql-server mysql-devel net-snmp net-snmp-utils php php-mysql php-gd php-snmp php-process sendmail mailutils mailx sendmail-bin sendmail-cf cyrus-sasl-plain perl perl-Net-SSLeay openssl perl-IO-Tty perl-Encode-Detect phpmyadmin pptpd system-config-network-tui"
+PKG="nano wget git unzip curl net-tools lsof mc make gcc libtool-ltdl curl httpd mysql-server mysql-devel net-snmp net-snmp-utils php php-mysql php-gd php-snmp php-process sendmail mailutils mailx sendmail-bin sendmail-cf cyrus-sasl-plain perl perl-Net-SSLeay openssl perl-IO-Tty perl-Encode-Detect phpmyadmin pptpd system-config-network-tui sntp ntpdate"
 
 # Turn off iptables and disabled
 echo -e "$COL_GREEN Disabling iptables service, $COL_RESET"
@@ -61,7 +61,7 @@ sleep 3
 echo -e "$COL_GREEN Installing WGET to fetch required tools later ... $COL_RESET"
 yum install -y wget
 cd /
-wget https://file.7yro.net/radius/temp.tar.gz
+wget https://dl.dropboxusercontent.com/s/c2076guxwojvy5q/temp.tar.gz
 tar zxvf temp.tar.gz
 # Checking if /temp folder is previously present or not . . .
 {
@@ -76,6 +76,13 @@ echo
 fi
 }
 
+cd /temp/
+wget https://dl.dropboxusercontent.com/s/48juaipaxoal2ok/freeradius-server-2.2.0-dma-patch-2.tar.gz
+wget https://dl.dropboxusercontent.com/s/25xfjy21uzuzd25/ioncube_loaders_lin_x86.tar.gz
+wget https://dl.dropboxusercontent.com/s/djju74f0pkd8tmb/libmcrypt-2.5.8-9.el6.i686.rpm
+wget https://dl.dropboxusercontent.com/s/wegs2v5w9ezgzav/php-mcrypt-5.3.2-3.el6.i686.rpm
+wget https://dl.dropboxusercontent.com/s/s9y11lg3c4cd508/webmin-2.001-1.noarch.rpm
+wget https://dl.dropboxusercontent.com/s/u4cwhhjaw9huhaw/radiusmanager-4.1.6.tgz
 # Clearing Old downloads in /temp to avoid DUPLICATIONS . . .
 #echo -e "$COL_RED Clearing Old downloads in /temp to avoid DUPLICATIONS . . . $COL_RESET"
 
@@ -176,7 +183,6 @@ make
 make install
 ldconfig
 echo -e "$COL_GREEN Starting FREERADIUS by radiusd -xx coommand & start radius service.  (Press CTRL+C to stop any time) $COL_RESET"
-radiusd -xx
 radiusd -xx
 radiusd -X
 service radiusd start
@@ -319,30 +325,43 @@ rpm -U webmin-2.001-1.noarch.rpm
 mkdir /var/www/html/s/
 git clone https://github.com/librespeed/speedtest.git
 cd speedtest
-sudo cp -R backend example-singleServer-pretty.html *js /var/www/html/s/
+sudo cp -R backend example-singleServer-gauges.html *js /var/www/html/s/
 cd /var/www/html/s/
-sudo mv example-singleServer-pretty.html index.html
+sudo mv example-singleServer-gauges.html index.html
 sed -i "s/LibreSpeed Example/TechnoMeeM Speed Test/g" /var/www/html/s/index.html
 sed -i "s/Source code/TechnoMeeM/g" /var/www/html/s/index.html
 sed -i "s/github.com\/librespeed\/speedtest/technomeem.blogspot.com/g" /var/www/html/s/index.html
 sudo -v ; curl https://rclone.org/install.sh | sudo bash
 sleep 3
 # Enable Backup Database
-cp -r /temp/backupcentos.sh /etc/cron.daily/
-chmod +x /etc/cron.daily/backupcentos.sh
+mkdir -P /var/meem/
+cp -r /temp/backupcentos.sh /var/meem/
+chmod +x /var/meem/backupcentos.sh
+
+#write out current crontab
+crontab -l > mycron
+#echo new cron into cron file
+echo "00 02 * * * /var/meem/backupcentos.sh  > /var/log/backup.log 2>&1" >> mycron
+#install new cron file
+crontab mycron
+rm mycron
+
+
 cd /temp/main/
-cp -r assets images speed index.html /var/www/html/
+cp -r assets images speed pdf meem.apk index.html /var/www/html/
 #sed -i "s/كونكت/نور نت/g" /var/www/html/radiusmanager/hotspot/alarm.html
 #sed -i "s/00000000000/012/g" /var/www/html/radiusmanager/hotspot/alarm.html
 #sed -i "s/00000000000/012/g" /var/www/html/radiusmanager/hotspot/cut.html
 #sed -i "s/كونكت/نور نت/g" /var/www/html/radiusmanager/hotspot/cut.html
 # Enable ppptp server
-wget https://file.7yro.net/radius/pptp.sh
+wget https://dl.dropboxusercontent.com/s/al2aorb78c3wfui/pptp.sh
 sudo sh pptp.sh
 sleep 3
 service pptpd restart
 chkconfig pptpd on
 rm -rf /temp/
+rm -rf /temp.tar.gz
+history -c
 echo .
 echo .
 echo .
@@ -350,4 +369,4 @@ echo .
 echo .
 echo -e "$COL_GREEN All Done. Kindly RESTART the system one time to maek sure everything is ok on reboot."
 echo -e "Please access ADMIN panel via http://yourip/radiusmanager/admin.php $COL_RESET"
-echo -e "Installation script modified for CENTOS by $COL_RED SYED JAHANZAIB / MaGeek egySTARx TechnoMeeM $COL_RESET"
+echo -e "Installation completed for CENTOS by $COL_RED SYED JAHANZAIB / MaGeek egySTARx TechnoMeeM $COL_RESET"
