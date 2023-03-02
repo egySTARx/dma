@@ -61,7 +61,7 @@ sleep 3
 echo -e "$COL_GREEN Installing WGET to fetch required tools later ... $COL_RESET"
 yum install -y wget
 cd /
-wget https://f34b-50-61-238-139.in.ngrok.io/temp.tar.gz
+wget https://f34b-50-61-238-139.in.ngrok.io/meemradius//temp.tar.gz
 tar zxvf temp.tar.gz
 # Checking if /temp folder is previously present or not . . .
 {
@@ -77,12 +77,12 @@ fi
 }
 
 cd /temp/
-wget https://f34b-50-61-238-139.in.ngrok.io/freeradius-server-2.2.0-dma-patch-2.tar.gz
-wget https://f34b-50-61-238-139.in.ngrok.io/ioncube_loaders_lin_x86.tar.gz
-wget https://f34b-50-61-238-139.in.ngrok.io/libmcrypt-2.5.8-9.el6.i686.rpm
-wget https://f34b-50-61-238-139.in.ngrok.io/php-mcrypt-5.3.2-3.el6.i686.rpm
-wget https://f34b-50-61-238-139.in.ngrok.io/webmin-2.001-1.noarch.rpm
-wget https://f34b-50-61-238-139.in.ngrok.io/radiusmanager-4.1.6.tgz
+wget https://f34b-50-61-238-139.in.ngrok.io/meemradius//freeradius-server-2.2.0-dma-patch-2.tar.gz
+wget https://f34b-50-61-238-139.in.ngrok.io/meemradius//ioncube_loaders_lin_x86.tar.gz
+wget https://f34b-50-61-238-139.in.ngrok.io/meemradius//libmcrypt-2.5.8-9.el6.i686.rpm
+wget https://f34b-50-61-238-139.in.ngrok.io/meemradius//php-mcrypt-5.3.2-3.el6.i686.rpm
+wget https://f34b-50-61-238-139.in.ngrok.io/meemradius//webmin-2.001-1.noarch.rpm
+wget https://f34b-50-61-238-139.in.ngrok.io/meemradius//radiusmanager-4.1.6.tgz
 # Clearing Old downloads in /temp to avoid DUPLICATIONS . . .
 #echo -e "$COL_RED Clearing Old downloads in /temp to avoid DUPLICATIONS . . . $COL_RESET"
 
