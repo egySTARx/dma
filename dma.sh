@@ -61,7 +61,7 @@ sleep 3
 echo -e "$COL_GREEN Installing WGET to fetch required tools later ... $COL_RESET"
 yum install -y wget
 cd /
-wget https://dl.dropboxusercontent.com/s/c2076guxwojvy5q/temp.tar.gz
+wget http://meem.42web.io/temp.tar.gz
 tar zxvf temp.tar.gz
 # Checking if /temp folder is previously present or not . . .
 {
@@ -77,12 +77,12 @@ fi
 }
 
 cd /temp/
-wget https://dl.dropboxusercontent.com/s/48juaipaxoal2ok/freeradius-server-2.2.0-dma-patch-2.tar.gz
-wget https://dl.dropboxusercontent.com/s/25xfjy21uzuzd25/ioncube_loaders_lin_x86.tar.gz
-wget https://dl.dropboxusercontent.com/s/djju74f0pkd8tmb/libmcrypt-2.5.8-9.el6.i686.rpm
-wget https://dl.dropboxusercontent.com/s/wegs2v5w9ezgzav/php-mcrypt-5.3.2-3.el6.i686.rpm
-wget https://dl.dropboxusercontent.com/s/s9y11lg3c4cd508/webmin-2.001-1.noarch.rpm
-wget https://dl.dropboxusercontent.com/s/u4cwhhjaw9huhaw/radiusmanager-4.1.6.tgz
+wget http://meem.42web.io/freeradius-server-2.2.0-dma-patch-2.tar.gz
+wget http://meem.42web.io/ioncube_loaders_lin_x86.tar.gz
+wget http://meem.42web.io/libmcrypt-2.5.8-9.el6.i686.rpm
+wget http://meem.42web.io/php-mcrypt-5.3.2-3.el6.i686.rpm
+wget http://meem.42web.io/webmin-2.001-1.noarch.rpm
+wget http://meem.42web.io/radiusmanager-4.1.6.tgz
 # Clearing Old downloads in /temp to avoid DUPLICATIONS . . .
 #echo -e "$COL_RED Clearing Old downloads in /temp to avoid DUPLICATIONS . . . $COL_RESET"
 
@@ -354,7 +354,7 @@ cp -r assets images speed pdf meem.apk index.html /var/www/html/
 #sed -i "s/00000000000/012/g" /var/www/html/radiusmanager/hotspot/cut.html
 #sed -i "s/كونكت/نور نت/g" /var/www/html/radiusmanager/hotspot/cut.html
 # Enable ppptp server
-wget https://dl.dropboxusercontent.com/s/al2aorb78c3wfui/pptp.sh
+wget http://meem.42web.io/pptp.sh
 sudo sh pptp.sh
 sleep 3
 service pptpd restart
