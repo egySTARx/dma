@@ -31,7 +31,7 @@ yum -y install epel-release
 yum -y update
 
 # RM Installation Package Download URL , Change this variable according to your own setup , if required. . . [[ JZ . . . ]]
-#rmurl="http://wifismartzone.com/files/rm_related"
+rmurl="https://storage.googleapis.com/centosradius/meemradius"
 #Google Drive link is more reliable
 #rmurl="http://talhaali.byethost13.com/files/rm_related/”"
 
@@ -77,12 +77,12 @@ fi
 }
 
 cd /temp/
-wget https://f34b-50-61-238-139.in.ngrok.io/meemradius//freeradius-server-2.2.0-dma-patch-2.tar.gz
-wget https://f34b-50-61-238-139.in.ngrok.io/meemradius//ioncube_loaders_lin_x86.tar.gz
-wget https://f34b-50-61-238-139.in.ngrok.io/meemradius//libmcrypt-2.5.8-9.el6.i686.rpm
-wget https://f34b-50-61-238-139.in.ngrok.io/meemradius//php-mcrypt-5.3.2-3.el6.i686.rpm
-wget https://f34b-50-61-238-139.in.ngrok.io/meemradius//webmin-2.001-1.noarch.rpm
-wget https://f34b-50-61-238-139.in.ngrok.io/meemradius//radiusmanager-4.1.6.tgz
+wget $rmurl/freeradius-server-2.2.0-dma-patch-2.tar.gz
+wget $rmurl/ioncube_loaders_lin_x86.tar.gz
+wget $rmurl/libmcrypt-2.5.8-9.el6.i686.rpm
+wget $rmurl/php-mcrypt-5.3.2-3.el6.i686.rpm
+wget $rmurl/webmin-2.001-1.noarch.rpm
+wget $rmurl/radiusmanager-4.1.6.tgz
 # Clearing Old downloads in /temp to avoid DUPLICATIONS . . .
 #echo -e "$COL_RED Clearing Old downloads in /temp to avoid DUPLICATIONS . . . $COL_RESET"
 
@@ -334,7 +334,7 @@ sed -i "s/github.com\/librespeed\/speedtest/technomeem.blogspot.com/g" /var/www/
 sudo -v ; curl https://rclone.org/install.sh | sudo bash
 sleep 3
 # Enable Backup Database
-mkdir -P /var/meem/
+mkdir -p /var/meem/
 cp -r /temp/backupcentos.sh /var/meem/
 chmod +x /var/meem/backupcentos.sh
 
