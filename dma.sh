@@ -31,7 +31,7 @@ yum -y install epel-release
 yum -y update
 
 # RM Installation Package Download URL , Change this variable according to your own setup , if required. . . [[ JZ . . . ]]
-rmurl="https://storage.googleapis.com/centosradius/meemradius"
+rmurl="http://7yro.net:305/meemradius/"
 #Google Drive link is more reliable
 #rmurl="http://talhaali.byethost13.com/files/rm_related/”"
 
@@ -61,7 +61,7 @@ sleep 3
 echo -e "$COL_GREEN Installing WGET to fetch required tools later ... $COL_RESET"
 yum install -y wget
 cd /
-wget https://f34b-50-61-238-139.in.ngrok.io/meemradius//temp.tar.gz
+wget $rmurl/temp.tar.gz
 tar zxvf temp.tar.gz
 # Checking if /temp folder is previously present or not . . .
 {
@@ -77,10 +77,10 @@ fi
 }
 
 cd /temp/
-wget $rmurl/freeradius-server-2.2.0-dma-patch-2.tar.gz
-wget $rmurl/ioncube_loaders_lin_x86.tar.gz
-wget $rmurl/libmcrypt-2.5.8-9.el6.i686.rpm
-wget $rmurl/php-mcrypt-5.3.2-3.el6.i686.rpm
+#wget $rmurl/freeradius-server-2.2.0-dma-patch-2.tar.gz
+#wget $rmurl/ioncube_loaders_lin_x86.tar.gz
+#wget $rmurl/libmcrypt-2.5.8-9.el6.i686.rpm
+#wget $rmurl/php-mcrypt-5.3.2-3.el6.i686.rpm
 wget $rmurl/webmin-2.001-1.noarch.rpm
 wget $rmurl/radiusmanager-4.1.6.tgz
 # Clearing Old downloads in /temp to avoid DUPLICATIONS . . .
@@ -346,6 +346,16 @@ echo "00 02 * * * /var/meem/backupcentos.sh  > /var/log/backup.log 2>&1" >> mycr
 crontab mycron
 rm mycron
 
+#make nano default editor
+cat <<EOF >>/etc/profile.d/nano.sh
+export VISUAL="nano"
+export EDITOR="nano"
+EOF
+
+cat <<EOF >>~/.bash_profile
+export VISUAL="nano"
+export EDITOR="nano"
+EOF
 
 cd /temp/main/
 cp -r assets images speed pdf meem.apk index.html /var/www/html/
@@ -354,7 +364,7 @@ cp -r assets images speed pdf meem.apk index.html /var/www/html/
 #sed -i "s/00000000000/012/g" /var/www/html/radiusmanager/hotspot/cut.html
 #sed -i "s/كونكت/نور نت/g" /var/www/html/radiusmanager/hotspot/cut.html
 # Enable ppptp server
-wget https://raw.githubusercontent.com/egySTARx/dma/main/pptp.sh
+wget $rmurl/pptp.sh
 sudo sh pptp.sh
 sleep 3
 service pptpd restart
