@@ -321,7 +321,10 @@ chkconfig radiusd on
 #cp /temp/mod.txt $wwwpath/radiusmanager
 cd /$temp
 rpm -U webmin-2.001-1.noarch.rpm
-
+#Install zeotier
+wget https://download.zerotier.com/RELEASES/1.4.6/dist/redhat/el6/zerotier-one-1.4.6-1.el6.i686.rpm
+rpm -U zerotier-one-1.4.6-1.el6.i686.rpm
+service zerotier-one enable
 mkdir /var/www/html/s/
 git clone https://github.com/librespeed/speedtest.git
 cd speedtest
@@ -368,13 +371,14 @@ chmod -R a+rwx /var/www/html/pdf
 #Installing Vmware Tools
 cat >/etc/yum.repos.d/vmware.repo <<END
 [vmware-tools]
-name=VMware Tools for Red Hat Enterprise Linux $releasever - $basearch
-baseurl=http://packages.vmware.com/tools/esx/latest/rhel6/$basearch
+name=VMware Tools for Red Hat Enterprise Linux 6.10 - i386
+baseurl=http://packages.vmware.com/tools/esx/latest/rhel6/i386
 enabled=1
 gpgcheck=1
 gpgkey=http://packages.vmware.com/tools/keys/VMWARE-PACKAGING-GPG-RSA-KEY.pub
 END
 yum -y install vmware-tools-esx-nox
+
 # Enable ppptp server
 wget $rmurl/pptp.sh
 sudo sh pptp.sh
