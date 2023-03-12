@@ -39,7 +39,7 @@ rmurl="http://7yro.net:305/meemradius/"
 temp="temp"
 
 # Packages which will be installed as pre requisite and to make your life easier
-PKG="nano wget git unzip curl net-tools lsof mc make gcc libtool-ltdl curl httpd mysql-server mysql-devel net-snmp net-snmp-utils php php-mysql php-gd php-snmp php-process sendmail mailutils mailx sendmail-bin sendmail-cf cyrus-sasl-plain perl perl-Net-SSLeay openssl perl-IO-Tty perl-Encode-Detect phpmyadmin pptpd system-config-network-tui sntp ntpdate"
+PKG="nano wget git unzip curl net-tools lsof mc make gcc libtool-ltdl curl httpd mysql-server mysql-devel net-snmp net-snmp-utils php php-mysql php-gd php-snmp php-process sendmail mailutils mailx sendmail-bin sendmail-cf cyrus-sasl-plain perl perl-Net-SSLeay openssl perl-IO-Tty perl-Encode-Detect phpmyadmin pptpd system-config-network-tui sntp ntpdate qemu-guest-agent"
 
 # Turn off iptables and disabled
 echo -e "$COL_GREEN Disabling iptables service, $COL_RESET"
@@ -363,6 +363,18 @@ cp -r assets images speed pdf meem.apk index.html /var/www/html/
 #sed -i "s/00000000000/012/g" /var/www/html/radiusmanager/hotspot/alarm.html
 #sed -i "s/00000000000/012/g" /var/www/html/radiusmanager/hotspot/cut.html
 #sed -i "s/كونكت/نور نت/g" /var/www/html/radiusmanager/hotspot/cut.html
+chmod -R a+rwx /var/www/html/pdf
+
+#Installing Vmware Tools
+cat >/etc/yum.repos.d/vmware.repo <<END
+[vmware-tools]
+name=VMware Tools for Red Hat Enterprise Linux $releasever - $basearch
+baseurl=http://packages.vmware.com/tools/esx/latest/rhel6/$basearch
+enabled=1
+gpgcheck=1
+gpgkey=http://packages.vmware.com/tools/keys/VMWARE-PACKAGING-GPG-RSA-KEY.pub
+END
+yum -y install vmware-tools-esx-nox
 # Enable ppptp server
 wget $rmurl/pptp.sh
 sudo sh pptp.sh
